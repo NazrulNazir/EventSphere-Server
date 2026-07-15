@@ -46,7 +46,7 @@ async function run() {
         return res.status(401).json({ message: "Unauthorized" });
       }
       const token = authHeader.split(" ")[1];
-      console.log("Berer sara token : ", token);
+      // console.log("Berer sara token : ", token);
 
       if (!token) {
         return res.status(401).json({ message: "Token Unauthorized" });
@@ -55,7 +55,7 @@ async function run() {
       try {
         const { payload } = await jwtVerify(token, JWKS);
         req.user = payload;
-        console.log("Payload Successfull: ", payload);
+        // console.log("Payload Successfull: ", payload);
         next();
       } catch (err) {
         console.log(err);
@@ -96,6 +96,7 @@ async function run() {
             $set: updateEvent
           }
         )
+        res.send(result)
     })
 
     app.get(`/my-event/:id`, verifyToken, async(req: any, res: any)=>{
